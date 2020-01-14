@@ -1,3 +1,4 @@
+/// Request models to handle JSON responses
 class Champ {
   final String version;
   final String id;
