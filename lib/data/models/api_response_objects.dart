@@ -1,4 +1,4 @@
-/// Request models to handle JSON responses
+/// Request models to ONLY to handle JSON responses
 class Champ {
   final String version;
   final String id;

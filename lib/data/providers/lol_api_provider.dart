@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:my_bloc/data/models/champion.dart';
+import 'package:my_bloc/data/models/api_response_objects.dart';
 
 /// [LoLApiProvider] asks data from server
 class LoLApiProvider {
@@ -9,10 +9,12 @@ class LoLApiProvider {
   /// Generical get method, GET to any REST API
   /// -> `response` unparsed JSON
   static Future<Response> genericGet(String requestURL) async {
-    final response = await dio.get(requestURL);
+    final response = await dio.get(requestURL); // TODO: Handle errors
     return response;
   }
 
+  /// Get Champs from API
+  /// -> `championResponse` Future<ChampionResponse>
   static Future<ChampionResponse> getChamps() async {
     var unparsedData = await genericGet(url);
     return ChampionResponse.fromJSON(unparsedData.data);
