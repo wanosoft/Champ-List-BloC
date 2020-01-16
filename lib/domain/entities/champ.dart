@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-// Champion Entitie (Usable)
+// Champion Entitie (Final and usable)
 class Champion extends Equatable {
   final String name;
   final String title;

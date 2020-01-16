@@ -11,4 +11,7 @@ class ChampDao extends DatabaseAccessor<LeagueDatabase> with _$ChampDaoMixin {
   ChampDao(this.db) : super(db);
 
   Future insertChamp(Insertable<Champ> champ) => into(champs).insert(champ);
+  Future<Champ> getChampByID(String id) {
+    return (select(champs)..where((champ) => champ.id.equals(id))).getSingle();
+  }
 }
