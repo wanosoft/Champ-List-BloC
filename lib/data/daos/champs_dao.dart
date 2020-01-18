@@ -14,4 +14,10 @@ class ChampDao extends DatabaseAccessor<LeagueDatabase> with _$ChampDaoMixin {
   Future<Champ> getChampByID(String id) {
     return (select(champs)..where((champ) => champ.id.equals(id))).getSingle();
   }
+  Stream<List<Champ>> watchAllChamps() {
+    return (select(champs)
+    ..orderBy([
+      (t) => OrderingTerm(expression: t.name, mode: OrderingMode.desc),
+    ])).watch();
+  }
 }

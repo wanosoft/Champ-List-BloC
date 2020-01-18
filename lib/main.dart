@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_bloc/data/moor_database.dart';
+import 'package:my_bloc/presentation/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyBlocDemo());
@@ -14,7 +15,7 @@ class MyBlocDemo extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Center(child:Text("First"))
+        home: HomePage()
       ),
     );
   }
