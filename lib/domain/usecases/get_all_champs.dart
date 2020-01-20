@@ -6,11 +6,15 @@ class ShowAllChamps {
   final ChampRepository repository;
   ShowAllChamps(this.repository);
 
-  Stream<List<Champion>> getAllChamps() {
+  Stream<List<Champion>> watchAllChamps() {
     return repository.watchAllChamps();
   }
 
   Future<Champion> fetchChampByName({@required String name}) async {
     return repository.fetchDetailedChampDescription(name);
+  }
+
+  Future<List<Champion>> getChampsFromAPI() {
+    return repository.getAllChamps();
   }
 }

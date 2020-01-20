@@ -5,14 +5,14 @@ import 'package:meta/meta.dart';
 class Champion extends Equatable {
   final String name;
   final String title;
-  final String description;
+  final String id;
 
   Champion({
     @required this.name,
     @required this.title,
-    @required this.description
+    @required this.id,
   });
 
   @override
-  List<Object> get props => [name, title, description];
+  List<Object> get props => [name, title, id];
 }

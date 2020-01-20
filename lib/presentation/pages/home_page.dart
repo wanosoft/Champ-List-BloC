@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_bloc/data/moor_database.dart';
+import 'package:my_bloc/data/providers/lol_api_provider.dart';
+import 'package:my_bloc/domain/entities/champ.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,11 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() { 
-    super.initState();
-    
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +19,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('LoL Champs'),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(child: _buildList(context))
-        ],
+      body: RefreshIndicator(
+        onRefresh: _requestChamps(),
+        child: Column(
+          children: <Widget>[
+            Expanded(child: _buildList(context))
+          ],
+        ),
       ),
     );
   }
@@ -53,5 +53,28 @@ class _HomePageState extends State<HomePage> {
       subtitle: Text(champ.title),
       onTap: () => print('TODO: show detail page')
     );
+  }
+
+  _requestChamps() async {
+    final database = Provider.of<LeagueDatabase>(context);
+    var champsResponse = await LoLApiProvider.getChamps();
+    List<Champion> parsedChampions = List();
+    champsResponse.champs.forEach((unparsedChamp) {
+      parsedChampions.add(
+        Champion(
+          id: unparsedChamp.id,
+          name: unparsedChamp.name,
+          title: unparsedChamp.title,
+        )
+      );
+    });
+    parsedChampions.forEach((champ){
+      var databaseChampion = Champ(
+        id: champ.id,
+        name: champ.name,
+        title: champ.title,
+      );
+      database.champDao.insertChamp(databaseChampion);
+    });
   }
 }
